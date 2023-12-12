@@ -30,7 +30,7 @@ public class ClassificadorPerfilProxy implements Classificador{
 	}
 	
 	private boolean autenticar(String usuario, String password) {
-		if(!(this.getPerfil().getUser().equalsIgnoreCase(usuario)) || !(this.getPerfil().getPwd().equalsIgnoreCase(password))) {
+		if(!(this.getPerfil().getUser().equals(usuario)) || !(this.getPerfil().getPwd().equals(password))) {
 			return false;
 		}
 		return true;
