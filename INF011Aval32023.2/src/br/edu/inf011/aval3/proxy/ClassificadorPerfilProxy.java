@@ -7,18 +7,19 @@ import br.edu.inf011.aval3.enunciado.model.service.NivelPerfil;
 
 public class ClassificadorPerfilProxy implements Classificador {
 	
-	
 	private ClassificadorPerfil classificadorPerfil;
+	private boolean valido;
 
 	@Override
 	public NivelPerfil nivel() {
-		this.validar(null, null); //Chamar aqui para verificar se as credenciais estão corretas.
-		return null;
+		if (!valido)
+			return NivelPerfil.NAO_VERIFICADO;
+		return this.classificadorPerfil.nivel();
 	}
 
 	@Override
 	public Perfil getPerfil() {
-		return null;
+		return this.classificadorPerfil.getPerfil();
 	}
 	
 	private boolean validar(String user, String password) {
@@ -28,4 +29,8 @@ public class ClassificadorPerfilProxy implements Classificador {
 		return true;
 	}
 
+	public ClassificadorPerfilProxy(ClassificadorPerfil classificadorPerfil, String user, String password) {
+		this.classificadorPerfil = classificadorPerfil;
+		this.valido = validar(user, password);
+	}
 }
